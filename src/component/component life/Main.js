@@ -18,7 +18,7 @@ class App extends Component {
   }
   static getDerivedStateFromProps(props, state) {
     console.log(
-      'I am getDerivedStateFromProps and I will be the second to run.'
+      'I am getDerivedStateFromProps and I will be the second to run.' 
     )
     return { firstName: props.firstName }
   }
