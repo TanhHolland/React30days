@@ -1,28 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
-import {
-    BrowserRouter as Router,
-    Route,
-    Routes,
-    NavLink,
-} from "react-router-dom";
-const Home = (props) => {
-    return <h1>Home</h1>;
-};
+import Main from "./component/Router/Main";
 
 const App = () => {
     return (
-        <Router>
-            <ul>
-                <li>
-                    <NavLink to="/">Home</NavLink>
-                </li>
-            </ul>
-            <Routes>
-                <Route path="/" component={Home} />
-            </Routes>
-        </Router>
+        <>
+            <Main></Main>
+        </>
     );
 };
 const root = ReactDOM.createRoot(document.getElementById("root"));
