@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
-import Main from "./component/Router/Main";
-
+import MainBook from "./component/Book/MainBook";
+import Main from "./component/component life/Main";
 const App = () => {
     return (
         <>
-            <Main></Main>
+           <MainBook></MainBook>
         </>
     );
 };

@@ -1,0 +1,10 @@
+.pending {
+    color: blue;
+}
+.active {
+    font-weight: bold;
+    color: red;
+}
+.transitioning {
+    opacity: 0.5;
+}
