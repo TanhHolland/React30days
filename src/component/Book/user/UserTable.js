@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import ModalUpdateUser from "./Modal.updateUser";
 import ModalDeleteUser from "./Modal.deleteUser";
-import Avatar from '@mui/material/Avatar';
+import ModalSelectAvatar from "./Modal.selectAvatar";
 export default function UserTable(props) {
     const { rows } = props;
     return (
@@ -38,7 +38,7 @@ export default function UserTable(props) {
                                 {row._id}
                             </TableCell>
                             <TableCell>
-                                <Avatar alt={row.fullName} sx={{ width: 50, height: 50 }} src={`http://localhost:8080/images/avatar/${row.avatar}`}></Avatar>
+                                <ModalSelectAvatar data_detail={row} avatar={`http://localhost:8080/images/avatar/${row.avatar}`}></ModalSelectAvatar>
                             </TableCell>
                             <TableCell align="right">{row.fullName}</TableCell>
                             <TableCell align="right">{row.email}</TableCell>

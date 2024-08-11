@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
 import MainBook from "./component/Book/MainBook";
-import Main from "./component/component life/Main";
+// import Main from "./component/component life/Main";
 const App = () => {
     return (
         <>

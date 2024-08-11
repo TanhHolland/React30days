@@ -27,7 +27,7 @@ export default function ModalUpdateUser(props) {
     const [name, setName] = useState(props.name);
     const [email, setEmail] = useState(props.email);
     const [phone, setPhone] = useState(props.phone);
-    const [avatar, setAvatar] = useState(props.avatar);
+    const {avatar} = useState(props.avatar);
     const { fetchData } = props;
     const handleClick = async () => {
         try {

@@ -32,7 +32,39 @@ const ApiPutUpdateUser = (_id, name, email, phone) => {
 const ApiDeleteUser = (_id) => {
     return axios({
         method: "delete",
-        url: `/api/v1/user/${_id}`
+        url: `/api/v1/user/${_id}`,
     });
 };
-export { ApiCreateUser, ApiGetListUser, ApiPutUpdateUser, ApiDeleteUser };
+const ApiUploadAvatar = (file, folder) => {
+    let bodyFormData = new FormData();
+    bodyFormData.append("fileImg", file);
+    return axios({
+        method: "post",
+        url: "/api/v1/file/upload",
+        data: bodyFormData,
+        headers: {
+            "upload-type": folder,
+            "Content-Type": "multipart/form-data",
+        },
+    });
+};
+const ApiUpdateAvatarUser = (_id, name, phone, nameFileAvatar) => {
+    return axios({
+        method: "put",
+        url: "/api/v1/user",
+        data: {
+            _id: _id,
+            fullName: name,
+            phone: phone,
+            avatar: nameFileAvatar,
+        },
+    });
+};
+export {
+    ApiCreateUser,
+    ApiGetListUser,
+    ApiPutUpdateUser,
+    ApiDeleteUser,
+    ApiUploadAvatar,
+    ApiUpdateAvatarUser,
+};
