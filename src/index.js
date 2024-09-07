@@ -1,12 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import reportWebVitals from "./reportWebVitals";
-import MainBook from "./component/Book/MainBook";
-// import Main from "./component/component life/Main";
+import RouterMainBook from "./component/Book/RouterMainBook";
+import { AuthWrapper } from "./component/Book/context/auth.context";
 const App = () => {
     return (
         <>
-           <MainBook></MainBook>
+            <AuthWrapper>
+                <RouterMainBook></RouterMainBook>
+            </AuthWrapper>
         </>
     );
 };

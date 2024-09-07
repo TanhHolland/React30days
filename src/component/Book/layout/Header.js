@@ -1,83 +1,69 @@
-import * as React from "react";
-import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Box from "@mui/material/Box";
-import UserTable from "../user/UserTable";
-import CreateUser from "../user/CreateUser";
-import ModalCreateUser from "../user/ModalCreateUser";
-import { useState } from "react";
-import { ApiGetListUser } from "../../../service/api.service";
-function CustomTabPanel(props) {
-    const { children, value, index, ...other } = props;
-
-    return (
-        <div
-            role="tabpanel"
-            hidden={value !== index}
-            id={`simple-tabpanel-${index}`}
-            aria-labelledby={`simple-tab-${index}`}
-            {...other}
-        >
-            {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-        </div>
-    );
-}
-
-CustomTabPanel.propTypes = {
-    children: PropTypes.node,
-    index: PropTypes.number.isRequired,
-    value: PropTypes.number.isRequired,
-};
-
-function a11yProps(index) {
-    return {
-        id: `simple-tab-${index}`,
-        "aria-controls": `simple-tabpanel-${index}`,
-    };
-}
-
-export default function Header() {
-    const [value, setValue] = React.useState(0);
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
-    const [rows, setRows] = useState([]);
-    const fetchData = async () => {
-        try {
-            const response = await ApiGetListUser();
-            setRows(response.data.data);
-        } catch (error) {
-            console.log("not list users", error);
+import React from "react";
+import { Breadcrumb } from "antd";
+import { Link } from "react-router-dom";
+import { AuthContextUser } from "../context/auth.context";
+import { UserOutlined } from "@ant-design/icons";
+import { ApiLogout } from "../../../service/api.service";
+import {notification} from "antd";
+const Header = () => {
+    const { user,setUser } = React.useContext(AuthContextUser);
+    const handleLogout = async() => {
+        const res = await ApiLogout();
+        if (res.data && res.data.data) {
+            setUser(undefined);
+            localStorage.removeItem("access_token");
+            notification.success({
+                message: "Đăng xuất thành công",
+            });
         }
-    };
-    React.useEffect(() => {
-        fetchData();
-    }, []);
+    }
+    const menuSetting = [
+        {
+            key: "login",
+            label: <Link to="/login">Login</Link>,
+        },
+        {
+            key: "register",
+            label: <Link to="/register">Register</Link>,
+        },
+    ];
+    const menuUser = [
+        {
+            key: "userInfor",
+            label: (
+                <>
+                    <UserOutlined />
+                    <Link to="/user/infor">{user && user.fullName}</Link>
+                </>
+            ),
+        },
+        {
+            key: "logout",
+            label: <Link to="/login" onClick={handleLogout}>Logout</Link>,
+        },
+    ];
     return (
-        <Box sx={{ width: "100%" }}>
-            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                <Tabs
-                    value={value}
-                    onChange={handleChange}
-                    aria-label="basic tabs example"
-                >
-                    <Tab label="Home" {...a11yProps(0)} />
-                    <Tab label="User" {...a11yProps(1)} />
-                    <Tab label="Books" {...a11yProps(2)} />
-                </Tabs>
-            </Box>
-            <CustomTabPanel value={value} index={0}>
-                Item One
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={1}>
-                <CreateUser fetchData={fetchData}></CreateUser>
-                <ModalCreateUser fetchData={fetchData}></ModalCreateUser>
-                <UserTable rows={rows} fetchData={fetchData}></UserTable>
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={2}>
-                Item Three
-            </CustomTabPanel>
-        </Box>
+        <>
+            <Breadcrumb
+                items={[
+                    {
+                        title: <Link to="/">Home</Link>,
+                    },
+                    {
+                        title: <Link to="/user">User</Link>,
+                    },
+                    {
+                        title: <Link to="/book">Book</Link>,
+                    },
+                    {
+                        title: "Setting",
+                        menu: {
+                            items: user ? menuUser : menuSetting,
+                        },
+                    },
+                ]}
+            />
+        </>
     );
-}
+};
+export default Header;

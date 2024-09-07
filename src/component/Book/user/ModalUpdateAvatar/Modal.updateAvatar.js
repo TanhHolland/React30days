@@ -14,8 +14,13 @@ const ModalUpdateAvatar = (props) => {
     const [croppedArea, setCroppedArea] = React.useState(null);
     const [crop, setCrop] = React.useState({ x: 0, y: 0 });
     const [zoom, setZoom] = React.useState(1);
-    const { data_detail, preview, handleCancelSelect, selectedFileName,setAvatar } =
-        props;
+    const {
+        data_detail,
+        preview,
+        handleCancelSelect,
+        selectedFileName,
+        setAvatar,
+    } = props;
     const onCropComplete = (croppedAreaPercentage, croppedAreaPixels) => {
         setCroppedArea(croppedAreaPixels);
     };
